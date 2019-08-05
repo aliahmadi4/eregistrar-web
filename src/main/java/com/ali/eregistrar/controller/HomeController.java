@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,18 +43,24 @@ public class HomeController {
 	public String saveNewStudent(@ModelAttribute("student") Student student) {
 		service.saveStudent(student);
 		//System.out.println(student);
-		return "redirect:eregistrar/students";
+		return "redirect:/eregistrar/students";
 	}
 	
-	@GetMapping("/eregistrar/edit/{Id}")
+	@GetMapping("/eregistrar/edit/{id}")
 	public String editStudent(@PathVariable Long  id, Model model) {
 		Student st = service.getStudentById(id);
 		if(st!=null) {
 			model.addAttribute("student", st);
-			return "studentsList.html";
+			return "editStudent.html";
 		}
 		
-		return "studentsList.html";
+		return "editStudent.html";
+	}
+	
+	@PutMapping("/eregistrar/update/")
+	public String updateStudent(@ModelAttribute("student") Student student) {
+		service.saveStudent(student);
+		return "redirect:/eregistrar/students";
 	}
 	
 }
