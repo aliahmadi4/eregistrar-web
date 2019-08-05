@@ -67,7 +67,7 @@
 					<td><a
 						th:href="@{'/eregistrar/edit/{Id}'(Id=${student.studentId})}">Edit</a></td>
 					<td><a
-						th:href="@{'/eregistrar/remove/{Id}'(Id=${student.studentId})}">Delete</a></td>
+						th:href="@{'/eregistrar/remove/{Id}'(Id=${student.studentId})}" onClick="return confirm('Are you sure?')">Delete</a></td>
 				</tr>
 
 			</tbody>
