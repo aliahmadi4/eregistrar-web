@@ -63,4 +63,10 @@ public class HomeController {
 		return "redirect:/eregistrar/students";
 	}
 	
+	@GetMapping("/eregistrar/remove/{Id}")
+	public String deleteStudent(@PathVariable("Id") Long id) {
+		service.deleteStudent(id);
+		return "redirect:/eregistrar/students";
+	}
+	
 }

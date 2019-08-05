@@ -31,7 +31,5 @@ public class StudentService {
 		return repository.findById(id).orElse(null);
 		
 	}
-//	public void updateStudent(Student student) {
-//		repository.
-//	}
+	
 }
