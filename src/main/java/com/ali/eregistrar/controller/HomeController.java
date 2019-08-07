@@ -1,6 +1,10 @@
 package com.ali.eregistrar.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +30,10 @@ public class HomeController {
 	}
 	
 	@GetMapping({"/eregistrar/students"})
-	public ModelAndView showStudentsPage() {
+	public ModelAndView showStudents(@RequestParam(defaultValue= "0") int pageno) {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("students", service.getAllStudent());
+		mv.addObject("students", service.getStudentsPaged(pageno));
+		mv.addObject("currentPage", pageno);
 		mv.setViewName("studentsList.html");
 		return mv;
 	}
@@ -67,6 +72,21 @@ public class HomeController {
 	public String deleteStudent(@PathVariable("Id") Long id) {
 		service.deleteStudent(id);
 		return "redirect:/eregistrar/students";
+	}
+	
+	@GetMapping("/eregistrar/students/search")
+	public ModelAndView searchStudent(@RequestParam String searchText, @RequestParam(defaultValue= "0") int pageno) {
+//		List<Student> list = new ArrayList<>();
+//		list.add(service.getStudentById(Long.parseLong(searchText)));
+		//Page<Student> students = ;
+		//students.forEach(System.out::println);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("students", service.getStudentByStudentNumber(searchText, pageno));
+		mv.addObject("currentPage", pageno);
+		mv.addObject("searchText", searchText);
+		mv.setViewName("searchResult.html");
+		return mv;
 	}
 	
 }
